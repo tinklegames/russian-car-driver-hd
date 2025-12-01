@@ -22,58 +22,62 @@
     <script src="config/TemplateData56/UnityProgress.js"></script>
     <script src="Build/UnityLoader.js"></script>
 
-    <!-- LIVE BLURRED BACKGROUND CSS -->
+    <!-- BLURRED BACKGROUND + LAYOUT -->
     <style>
-      body {
+      html, body {
         margin: 0;
-        overflow: hidden;
-        background: #000;
-      }
-
-      /* Live mirrored blurred background */
-      #blur-bg-live {
-        position: fixed;
-        inset: 0;
-        z-index: -1;
-        filter: blur(35px) brightness(0.55);
-        transform: scale(1.25);
-      }
-
-      /* Background canvas */
-      #mirror {
-        width: 100%;
+        padding: 0;
         height: 100%;
-        object-fit: cover;
       }
 
-      /* Center the game */
+      body {
+        background: #000;
+        overflow: hidden;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      /* Fullscreen blurred background */
+      .body-bg {
+        position: fixed;
+        inset: -20px; /* extra for blur edges */
+        background-image: url("https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fgames-cdn.softpedia.com%2Fscreenshots%2Frussian-car-driver-hd_7.jpg&f=1&nofb=1&ipt=10ae058f033dc921ac6451037e412a15df9cae7824589883a15cefb76e5f54f0"); /* <-- change this path */
+        background-size: cover;
+        background-position: center;
+        filter: blur(35px) brightness(0.55);
+        z-index: -1;
+      }
+
+      /* Center the game content */
       #container {
         position: relative;
-        z-index: 5;
-        width: 100%;
-        height: 100vh;
+        z-index: 1;
         display: flex;
         flex-direction: column;
         align-items: center;
         justify-content: center;
       }
 
+      /* Optional: make game area pop a bit */
+      #gameContainer {
+        box-shadow: 0 0 35px rgba(0, 0, 0, 0.8);
+      }
+
       .game-name {
         margin-top: 15px;
-        color: white;
+        color: #ffffff;
         font-size: 22px;
         font-family: Arial, sans-serif;
         text-align: center;
+        text-shadow: 0 0 6px rgba(0, 0, 0, 0.8);
       }
     </style>
   </head>
 
   <body>
-
-    <!-- LIVE BACKGROUND CANVAS -->
-    <div id="blur-bg-live">
-      <canvas id="mirror"></canvas>
-    </div>
+    <!-- Blurred background layer -->
+    <div class="body-bg"></div>
 
     <!-- GAME -->
     <div id="container" class="container webgl-content">
@@ -96,40 +100,5 @@
         }
       );
     </script>
-
-    <!-- LIVE BACKGROUND MIRROR SCRIPT -->
-    <script>
-      const mirror = document.getElementById("mirror");
-      const ctx = mirror.getContext("2d");
-
-      let gameCanvas = null;
-
-      function findGameCanvas() {
-        const canvas = document.querySelector("#gameContainer canvas");
-        if (canvas) {
-          gameCanvas = canvas;
-        } else {
-          requestAnimationFrame(findGameCanvas);
-        }
-      }
-
-      findGameCanvas();
-
-      function updateMirror() {
-        if (gameCanvas) {
-          mirror.width = window.innerWidth;
-          mirror.height = window.innerHeight;
-          try {
-            ctx.drawImage(gameCanvas, 0, 0, mirror.width, mirror.height);
-          } catch (e) {
-            // Canvas not ready yet; retry silently
-          }
-        }
-        requestAnimationFrame(updateMirror);
-      }
-
-      updateMirror();
-    </script>
-
   </body>
 </html>
