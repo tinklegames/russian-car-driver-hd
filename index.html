@@ -24,55 +24,61 @@
 
     <!-- BLURRED BACKGROUND + LAYOUT -->
     <style>
-      html, body {
-        margin: 0;
-        padding: 0;
-        height: 100%;
-      }
+  html, body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+  }
 
-      body {
-        background: #000;
-        overflow: hidden;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-      }
+  body {
+    background: #000;
+    overflow: hidden;
+  }
 
-      /* Fullscreen blurred background */
-      .body-bg {
-        position: fixed;
-        inset: -20px; /* extra for blur edges */
-        background-image: url("https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fgames-cdn.softpedia.com%2Fscreenshots%2Frussian-car-driver-hd_7.jpg&f=1&nofb=1&ipt=10ae058f033dc921ac6451037e412a15df9cae7824589883a15cefb76e5f54f0"); /* <-- change this path */
-        background-size: cover;
-        background-position: center;
-        filter: blur(35px) brightness(0.55);
-        z-index: -1;
-      }
+  /* Fullscreen blurred background */
+  .body-bg {
+    position: fixed;
+    inset: -20px;
+    background-image: url("config/TemplateData56/rcd_bg.jpg"); /* adjust as needed */
+    background-size: cover;
+    background-position: center;
+    filter: blur(35px) brightness(0.55);
+    z-index: -1;
+  }
 
-      /* Center the game content */
-      #container {
-        position: relative;
-        z-index: 1;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-      }
+  /* FORCE center the game container */
+  #container {
+    position: fixed;      /* important */
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%); /* PERFECT CENTER */
+    z-index: 2;
 
-      /* Optional: make game area pop a bit */
-      #gameContainer {
-        box-shadow: 0 0 35px rgba(0, 0, 0, 0.8);
-      }
+    /* remove Unity’s default flex junk */
+    display: block !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    width: auto !important;
+    height: auto !important;
+  }
 
-      .game-name {
-        margin-top: 15px;
-        color: #ffffff;
-        font-size: 22px;
-        font-family: Arial, sans-serif;
-        text-align: center;
-        text-shadow: 0 0 6px rgba(0, 0, 0, 0.8);
-      }
-    </style>
+  /* Optional glow */
+  #gameContainer {
+    display: block;
+    margin: 0 auto;
+    box-shadow: 0px 0px 40px rgba(0,0,0,0.8);
+  }
+
+  .game-name {
+    margin-top: 15px;
+    text-align: center;
+    color: white;
+    font-family: Arial, sans-serif;
+    font-size: 22px;
+    text-shadow: 0 0 10px rgba(0,0,0,0.8);
+  }
+</style>
+
   </head>
 
   <body>
@@ -102,3 +108,4 @@
     </script>
   </body>
 </html>
+
